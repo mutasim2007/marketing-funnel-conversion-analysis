@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marketing Funnel & Conversion Performance — Mutasim Ahmed</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#F0F2F5;color:#252423;}
+.header{background:linear-gradient(135deg,#2B5797,#1a3a6e);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.header h1{color:#fff;font-size:17px;font-weight:700;}
+.header p{color:rgba(255,255,255,0.75);font-size:9.5px;margin-top:3px;}
+.tags{display:flex;gap:6px;}
+.tag{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:8.5px;padding:3px 9px;border-radius:2px;}
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-bottom:1px solid #E0E0E0;}
+.kpi{padding:12px 18px;border-right:1px solid #E0E0E0;text-align:left;}
+.kpi:last-child{border-right:none;}
+.kpi-lbl{font-size:9px;font-weight:700;color:#8A8886;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
+.kpi-val{font-size:22px;font-weight:700;line-height:1;}
+.kpi-sub{font-size:8.5px;margin-top:3px;}
+.body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:10px;background:#F0F2F5;}
+.row{display:contents;}
+.card{background:#fff;border-radius:2px;border:1px solid #E0E0E0;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.card-title{font-size:10.5px;font-weight:700;color:#1F1F1F;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #F0F0F0;display:flex;justify-content:space-between;align-items:center;}
+.card-hint{font-size:7px;color:#AAAAAA;text-align:center;margin-top:5px;border-top:1px solid #F5F5F5;padding-top:3px;}
+canvas{display:block;}
+.filters{background:#fff;border-bottom:1px solid #E0E0E0;padding:7px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filter-lbl{font-size:9px;font-weight:700;color:#8A8886;text-transform:uppercase;letter-spacing:.04em;}
+.filter-btn{font-size:9px;padding:4px 11px;border:1px solid #BDD7EE;border-radius:12px;background:#EBF3FB;color:#2B5797;cursor:pointer;font-weight:600;transition:all .15s;}
+.filter-btn:hover,.filter-btn.active{background:#2B5797;color:#fff;border-color:#2B5797;}
+.footer{background:#FAFAFA;border-top:1px solid #E0E0E0;padding:6px 20px;display:flex;justify-content:space-between;align-items:center;}
+.footer-txt{font-size:8px;color:#8A8886;}
+.footer-pills{display:flex;gap:5px;}
+.fpill{background:#EBF3FB;color:#2B5797;border:1px solid #BDD7EE;border-radius:10px;padding:2px 9px;font-size:7.5px;font-weight:700;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>📈 Marketing Funnel &amp; Conversion Performance Analysis</h1>
+    <p>Lead Analysis · Conversion Metrics · Channel Performance · Drop-Off Insights · Task 3 of 3</p>
+  </div>
+  <div class="tags">
+    <div class="tag">4,535 Leads</div>
+    <div class="tag">Power BI · Excel</div>
+    <div class="tag">Future Interns 2025</div>
+    <div class="tag">Mutasim Ahmed</div>
+  </div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi"><div class="kpi-lbl">Total Leads</div><div class="kpi-val" style="color:#2B5797">4,535</div><div class="kpi-sub" style="color:#107C10">All inbound leads</div></div>
+  <div class="kpi"><div class="kpi-lbl">Conversion Rate %</div><div class="kpi-val" style="color:#70AD47">0.42</div><div class="kpi-sub" style="color:#107C10">↑ Improving MoM</div></div>
+  <div class="kpi"><div class="kpi-lbl">Drop-Off Rate %</div><div class="kpi-val" style="color:#C00000">0.58</div><div class="kpi-sub" style="color:#C00000">↓ Needs attention</div></div>
+  <div class="kpi"><div class="kpi-lbl">Avg Time (Conv.) Min</div><div class="kpi-val" style="color:#2B5797">16.35</div><div class="kpi-sub" style="color:#8A8886">Avg for converted leads</div></div>
+  <div class="kpi"><div class="kpi-lbl">Avg Visits (Conv.)</div><div class="kpi-val" style="color:#7030A0">5.07</div><div class="kpi-sub" style="color:#8A8886">Avg sessions before conv.</div></div>
+</div>
+
+<div class="filters">
+  <span class="filter-lbl">Filter by Source:</span>
+  <button class="filter-btn active" onclick="filterSource('all',this)">All Sources</button>
+  <button class="filter-btn" onclick="filterSource('Reference',this)">Reference</button>
+  <button class="filter-btn" onclick="filterSource('VetLearn',this)">VetLearn</button>
+  <button class="filter-btn" onclick="filterSource('Veltinguk Website',this)">Veltinguk Website</button>
+  <button class="filter-btn" onclick="filterSource('Olark Chat',this)">Olark Chat</button>
+  <button class="filter-btn" onclick="filterSource('Direct Traffic',this)">Direct Traffic</button>
+</div>
+
+<div class="body">
+  <!-- Row 1 -->
+  <div class="card">
+    <div class="card-title">High Intent Leads: Total Converted and Visited Leads<span style="font-size:9px;color:#8A8886;font-weight:400">⋯</span></div>
+    <canvas id="c1" width="360" height="200"></canvas>
+    <div class="card-hint">LeadType · Count of Leads</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Conversion Rate % by Lead Origin<span style="font-size:9px;color:#8A8886;font-weight:400">⋯</span></div>
+    <canvas id="c2" width="360" height="200"></canvas>
+    <div class="card-hint">LeadOrigin · Conversion Rate %</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Total Converted by Lead Origin<span style="font-size:9px;color:#8A8886;font-weight:400">⋯</span></div>
+    <canvas id="c3" width="360" height="200"></canvas>
+    <div class="card-hint">LeadOrigin · Count of Converted</div>
+  </div>
+  <!-- Row 2 -->
+  <div class="card">
+    <div class="card-title">Conversion Rate % by Lead Source<span style="font-size:9px;color:#8A8886;font-weight:400">⋯</span></div>
+    <canvas id="c4" width="360" height="220"></canvas>
+    <div class="card-hint">LeadSource · Conversion Rate %</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Monthly Lead &amp; Conversion Trend<span style="font-size:9px;color:#8A8886;font-weight:400">⋯</span></div>
+    <canvas id="c5" width="360" height="220"></canvas>
+    <div class="card-hint">Month · Leads vs Converted vs Conv Rate %</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div class="card" style="flex:1;">
+      <div class="card-title">Conversion Rate % by Visit Group<span style="font-size:9px;color:#8A8886;font-weight:400">⋯</span></div>
+      <canvas id="c6" width="340" height="90"></canvas>
+      <div class="card-hint">VisitGroup · Conversion Rate %</div>
+    </div>
+    <div class="card" style="flex:1;">
+      <div class="card-title">Total Time Spent by Conversion Status<span style="font-size:9px;color:#8A8886;font-weight:400">⋯</span></div>
+      <canvas id="c7" width="340" height="110"></canvas>
+      <div class="card-hint">TimeSpent · Sum · ConversionStatus</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-txt">Power BI Desktop · Task 3 of 3 · Marketing Funnel Analysis · Future Interns Data Science Track · Mutasim Ahmed · 2025</div>
+  <div class="footer-pills">
+    <div class="fpill">Excel</div>
+    <div class="fpill">Power BI</div>
+    <div class="fpill">DAX</div>
+    <div class="fpill">Funnel Analysis</div>
+    <div class="fpill">Future Interns</div>
+  </div>
+</div>
+
+<script>
+// ── COLOURS ──
+var B='#2B5797',LB='#5B9BD5',VB='#BDD7EE',
+    PK='#C00000',OR='#E36C09',GR='#70AD47',
+    PU='#7030A0',YL='#FFC000',DARK='#1F1F1F',
+    LGRAY='#7F7F7F',BGRAY='#E8E8E8';
+
+// ── DRAW HELPERS ──
+function drawBar(ctx,x,y,w,h,color,radius){
+  radius=radius||2;
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.moveTo(x+radius,y);
+  ctx.lineTo(x+w-radius,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+radius);
+  ctx.lineTo(x+w,y+h);
+  ctx.lineTo(x,y+h);
+  ctx.lineTo(x,y+radius);
+  ctx.quadraticCurveTo(x,y,x+radius,y);
+  ctx.closePath();
+  ctx.fill();
+}
+function drawHBar(ctx,x,y,w,h,color){
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+  ctx.lineTo(x+w-2,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+2);
+  ctx.lineTo(x+w,y+h-2);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-2,y+h);
+  ctx.lineTo(x,y+h);
+  ctx.closePath();
+  ctx.fill();
+}
+function gridH(ctx,x0,y0,w,h,steps,maxV){
+  ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.7;
+  for(var i=0;i<=steps;i++){
+    var y=y0+h-i*(h/steps);
+    ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x0+w,y);ctx.stroke();
+    var v=Math.round(maxV*i/steps);
+    ctx.fillStyle=LGRAY;ctx.font='7px Segoe UI';ctx.textAlign='right';
+    ctx.fillText(v>=1000?Math.round(v/100)/10+'K':v,x0-3,y+3);
+  }
+}
+function gridV(ctx,x0,y0,h,steps,maxV){
+  ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.7;
+  for(var i=0;i<=steps;i++){
+    var x=x0+i*(400/steps);
+    ctx.beginPath();ctx.moveTo(x,y0);ctx.lineTo(x,y0+h);ctx.stroke();
+    ctx.fillStyle=LGRAY;ctx.font='7px Segoe UI';ctx.textAlign='center';
+    ctx.fillText((maxV*i/steps).toFixed(1),x,y0+h+10);
+  }
+}
+function label(ctx,txt,x,y,size,color,align,weight){
+  ctx.font=(weight||'normal')+' '+(size||8)+'px Segoe UI';
+  ctx.fillStyle=color||DARK;
+  ctx.textAlign=align||'left';
+  ctx.fillText(txt,x,y);
+}
+
+// ══════════════════════════
+// CHART 1: FUNNEL HBAR
+// ══════════════════════════
+(function(){
+  var c=document.getElementById('c1'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var data=[
+    {lbl:'High Intent Leads',val:2800,col:B},
+    {lbl:'Total Converted',  val:2717,col:PK},
+    {lbl:'Visited Leads',    val:1950,col:OR},
+  ];
+  var pad={l:130,r:55,t:15,b:30},cW=W-pad.l-pad.r,maxV=3000;
+  var bH=32,gap=20,startY=pad.t+10;
+  ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.7;
+  for(var g=0;g<=6;g++){
+    var x=pad.l+g*(cW/6);
+    ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,pad.t+data.length*(bH+gap));ctx.stroke();
+    label(ctx,(maxV/6*g>=1000?(maxV/6*g/1000).toFixed(1)+'K':Math.round(maxV/6*g))+'',
+      x,H-8,7,LGRAY,'center');
+  }
+  data.forEach(function(d,i){
+    var y=startY+i*(bH+gap);
+    label(ctx,d.lbl,pad.l-5,y+bH/2+4,8,DARK,'right','600');
+    var bW=Math.round(d.val/maxV*cW);
+    drawHBar(ctx,pad.l,y,bW,bH,d.col);
+    label(ctx,d.val.toLocaleString(),pad.l+bW+5,y+bH/2+4,8.5,DARK,'left','700');
+    label(ctx,Math.round(d.val/2800*100)+'%',pad.l+bW+50,y+bH/2+4,7.5,LGRAY,'left');
+  });
+  label(ctx,'313.1%',W-5,H-5,9,B,'right','700');
+})();
+
+// ══════════════════════════
+// CHART 2: AREA LINE
+// ══════════════════════════
+(function(){
+  var c=document.getElementById('c2'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var origins=['Lead Add\nForm','Landing Page\nSubmission','API'];
+  var vals=[0.85,0.72,0.45];
+  var pad={l:40,r:20,t:20,b:50},cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  var maxV=1.0,steps=4;
+  // grid
+  for(var i=0;i<=steps;i++){
+    var y=pad.t+cH-i*(cH/steps),v=(maxV/steps*i);
+    ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.7;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    label(ctx,v.toFixed(1),pad.l-4,y+3,7,LGRAY,'right');
+  }
+  // axes
+  label(ctx,'Conversion Rate %',5,H/2,7,LGRAY,'left');
+  // points
+  var pts=vals.map(function(v,i){
+    return{x:pad.l+i*(cW/2),y:pad.t+cH-v/maxV*cH};
+  });
+  // area fill
+  ctx.beginPath();ctx.moveTo(pts[0].x,pad.t+cH);
+  pts.forEach(function(p){ctx.lineTo(p.x,p.y);});
+  ctx.lineTo(pts[pts.length-1].x,pad.t+cH);ctx.closePath();
+  ctx.fillStyle='rgba(192,0,0,0.12)';ctx.fill();
+  // line
+  ctx.strokeStyle=PK;ctx.lineWidth=2.5;ctx.lineJoin='round';
+  ctx.beginPath();pts.forEach(function(p,i){i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y);});
+  ctx.stroke();
+  // dots + labels
+  pts.forEach(function(p,i){
+    ctx.fillStyle='#fff';ctx.strokeStyle=PK;ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(p.x,p.y,5,0,Math.PI*2);ctx.fill();ctx.stroke();
+    label(ctx,vals[i].toFixed(2),p.x,p.y-10,9,PK,'center','700');
+    // x labels (wrapped)
+    var lines=origins[i].split('\n');
+    lines.forEach(function(ln,li){
+      label(ctx,ln,p.x,pad.t+cH+14+li*12,8,DARK,'center');
+    });
+  });
+  label(ctx,'Lead Origin →',W/2,H-2,7.5,LGRAY,'center');
+})();
+
+// ══════════════════════════
+// CHART 3: DONUT PIE
+// ══════════════════════════
+(function(){
+  var c=document.getElementById('c3'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var slices=[
+    {lbl:'Landing Page Submission',val:0.757,col:B,pct:'75.7%'},
+    {lbl:'DK',                     val:0.230,col:OR,pct:'23.0%'},
+    {lbl:'Lead Add Form',          val:0.013,col:PK,pct:'1.25%'},
+  ];
+  var cx=130,cy=H/2,r=72,inner=0.52;
+  var start=-Math.PI/2;
+  slices.forEach(function(s){
+    var end=start+s.val*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=s.col;ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+    start=end;
+  });
+  // inner hole
+  ctx.beginPath();ctx.arc(cx,cy,r*inner,0,Math.PI*2);
+  ctx.fillStyle='#fff';ctx.fill();
+  // center text
+  label(ctx,'1K',cx,cy-5,13,DARK,'center','700');
+  label(ctx,'(75.7%)',cx,cy+12,8,LGRAY,'center');
+  // legend
+  var lx=cx+r+18,ly=30;
+  slices.forEach(function(s,i){
+    var y=ly+i*42;
+    ctx.fillStyle=s.col;ctx.fillRect(lx,y,11,11);ctx.strokeStyle='#fff';ctx.lineWidth=1;ctx.strokeRect(lx,y,11,11);
+    label(ctx,s.lbl,lx+15,y+9,8.5,DARK,'left','600');
+    label(ctx,s.pct,lx+15,y+21,8,LGRAY,'left');
+  });
+})();
+
+// ══════════════════════════
+// CHART 4: SOURCE HBAR
+// ══════════════════════════
+(function(){
+  var c=document.getElementById('c4'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var data=[
+    {lbl:'Reference',         val:0.58,col:B},
+    {lbl:'VetLearn',          val:0.48,col:B},
+    {lbl:'Direct Traffic',    val:0.38,col:LB},
+    {lbl:'Veltinguk Website', val:0.35,col:LB},
+    {lbl:'Olark Chat',        val:0.28,col:VB},
+    {lbl:'Facebook',          val:0.22,col:VB},
+    {lbl:'Bing',              val:0.18,col:VB},
+  ];
+  var pad={l:125,r:55,t:10,b:25},cW=W-pad.l-pad.r,maxV=0.70;
+  var bH=20,gap=10,startY=pad.t+8;
+  for(var g=0;g<=7;g++){
+    var x=pad.l+g*(cW/7);
+    ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.7;
+    ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,H-pad.b);ctx.stroke();
+    label(ctx,(maxV/7*g).toFixed(1),x,H-pad.b+10,7,LGRAY,'center');
+  }
+  data.forEach(function(d,i){
+    var y=startY+i*(bH+gap);
+    label(ctx,d.lbl,pad.l-5,y+bH/2+4,8.5,DARK,'right');
+    var bW=Math.round(d.val/maxV*cW);
+    drawHBar(ctx,pad.l,y,bW,bH,d.col);
+    label(ctx,d.val.toFixed(2),pad.l+bW+5,y+bH/2+4,8,DARK,'left','700');
+  });
+})();
+
+// ══════════════════════════
+// CHART 5: MONTHLY GROUPED BAR + LINE
+// ══════════════════════════
+(function(){
+  var c=document.getElementById('c5'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var months=['J','F','M','A','M','J','J','A','S','O','N','D'];
+  var leads=[320,345,378,412,445,398,420,456,482,501,535,843];
+  var convd=[98,112,134,158,178,152,168,188,204,218,238,402];
+  var rates=leads.map(function(l,i){return convd[i]/l;});
+  var pad={l:38,r:40,t:15,b:28},n=months.length;
+  var cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  var bW=Math.floor(cW/n),bGap=4,grpW=bW-bGap*2,sW=Math.floor(grpW/2);
+  var maxL=900;
+  // grid
+  for(var g=0;g<=4;g++){
+    var y=pad.t+cH-g*(cH/4);
+    ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.6;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    label(ctx,Math.round(maxL/4*g)+'',pad.l-3,y+3,6.5,LGRAY,'right');
+  }
+  // bars
+  months.forEach(function(m,i){
+    var x0=pad.l+i*bW+bGap;
+    var h1=Math.round(leads[i]/maxL*cH);
+    var h2=Math.round(convd[i]/maxL*cH);
+    ctx.fillStyle=VB;ctx.fillRect(x0,pad.t+cH-h1,sW,h1);
+    ctx.fillStyle=B; ctx.fillRect(x0+sW,pad.t+cH-h2,sW,h2);
+    label(ctx,m,x0+sW,H-4,7,LGRAY,'center');
+  });
+  // rate line (right axis)
+  var maxR=0.60;
+  ctx.strokeStyle=PK;ctx.lineWidth=2;ctx.lineJoin='round';
+  ctx.beginPath();
+  rates.forEach(function(r,i){
+    var x=pad.l+i*bW+bW/2;
+    var y=pad.t+cH-r/maxR*cH;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  rates.forEach(function(r,i){
+    var x=pad.l+i*bW+bW/2;
+    var y=pad.t+cH-r/maxR*cH;
+    ctx.fillStyle='#fff';ctx.strokeStyle=PK;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();ctx.stroke();
+  });
+  // right axis labels
+  for(var g=0;g<=3;g++){
+    var y=pad.t+cH-g*(cH/3);
+    label(ctx,(maxR/3*g*100).toFixed(0)+'%',W-pad.r+4,y+3,6.5,PK,'left');
+  }
+  // legend
+  ctx.fillStyle=VB;ctx.fillRect(pad.l,3,9,7);
+  label(ctx,'Total Leads',pad.l+12,10,7,DARK,'left');
+  ctx.fillStyle=B;ctx.fillRect(pad.l+72,3,9,7);
+  label(ctx,'Converted',pad.l+84,10,7,DARK,'left');
+  ctx.strokeStyle=PK;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(pad.l+148,7);ctx.lineTo(pad.l+162,7);ctx.stroke();
+  label(ctx,'Conv Rate',pad.l+166,10,7,DARK,'left');
+})();
+
+// ══════════════════════════
+// CHART 6: VISIT GROUP BARS
+// ══════════════════════════
+(function(){
+  var c=document.getElementById('c6'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var data=[{lbl:'5+ Visits',val:0.62,col:PU},{lbl:'Below 5 Visits',val:0.28,col:B}];
+  var pad={l:25,r:25,t:10,b:25},cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  var bW=Math.floor(cW/2)-30,maxV=0.80;
+  var centers=[cW/4+pad.l,3*cW/4+pad.l];
+  for(var g=0;g<=4;g++){
+    var y=pad.t+cH-g*(cH/4);
+    ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.6;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+  }
+  data.forEach(function(d,i){
+    var x=centers[i]-bW/2;
+    var h=Math.round(d.val/maxV*cH);
+    drawBar(ctx,x,pad.t+cH-h,bW,h,d.col,3);
+    label(ctx,d.val.toFixed(2),centers[i],pad.t+cH-h-5,9,DARK,'center','700');
+    label(ctx,d.lbl,centers[i],H-3,8,DARK,'center');
+  });
+})();
+
+// ══════════════════════════
+// CHART 7: AREA LINE TIME
+// ══════════════════════════
+(function(){
+  var c=document.getElementById('c7'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var pad={l:40,r:15,t:10,b:22},cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
+  var n=30;
+  // generate smooth area data
+  function genCurve(seed,scale,offset){
+    var pts=[];
+    for(var i=0;i<n;i++){
+      var t=i/(n-1);
+      var v=offset+scale*(0.5+0.3*Math.sin(t*Math.PI+seed)+0.15*Math.cos(t*Math.PI*2+seed));
+      pts.push(Math.max(0.8,Math.min(2.8,v)));
+    }
+    return pts;
+  }
+  var conv=genCurve(1.2,0.8,1.6);
+  var noconv=genCurve(2.5,0.4,1.2);
+  var maxV=3.0;
+  // grid
+  for(var g=0;g<=3;g++){
+    var y=pad.t+cH-g*(cH/3);
+    ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.6;
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    label(ctx,(maxV/3*g).toFixed(1)+'M',pad.l-3,y+3,6.5,LGRAY,'right');
+  }
+  // x labels
+  ['0','1','2','3','4','5','6','7','8','9','10'].forEach(function(v,i){
+    label(ctx,v,pad.l+i*(cW/10),H-2,6.5,LGRAY,'center');
+  });
+  function plotArea(pts,color,alpha){
+    ctx.beginPath();
+    ctx.moveTo(pad.l,pad.t+cH);
+    pts.forEach(function(v,i){
+      ctx.lineTo(pad.l+i*(cW/(n-1)),pad.t+cH-v/maxV*cH);
+    });
+    ctx.lineTo(pad.l+(n-1)*(cW/(n-1)),pad.t+cH);
+    ctx.closePath();
+    ctx.fillStyle='rgba('+hexToRgb(color)+','+alpha+')';
+    ctx.fill();
+  }
+  function plotLine(pts,color,dash){
+    ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=2;
+    if(dash)ctx.setLineDash([4,3]);else ctx.setLineDash([]);
+    pts.forEach(function(v,i){
+      var x=pad.l+i*(cW/(n-1)),y=pad.t+cH-v/maxV*cH;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.stroke();ctx.setLineDash([]);
+  }
+  function hexToRgb(hex){
+    var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return r+','+g+','+b;
+  }
+  plotArea(conv,YL,0.30);
+  plotArea(noconv,YL,0.15);
+  plotLine(conv,YL,false);
+  plotLine(noconv,YL,true);
+  // legend
+  ctx.strokeStyle=YL;ctx.lineWidth=2;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(pad.l,7);ctx.lineTo(pad.l+18,7);ctx.stroke();
+  label(ctx,'Converted',pad.l+22,10,7,DARK,'left');
+  ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(pad.l+90,7);ctx.lineTo(pad.l+108,7);ctx.stroke();
+  ctx.setLineDash([]);
+  label(ctx,'Not Converted',pad.l+112,10,7,DARK,'left');
+})();
+
+// ── FILTER INTERACTION ──
+function filterSource(src,btn){
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  // In a real Power BI dashboard this would filter all visuals
+  // Here we just highlight the selected source in chart 4
+  redrawChart4(src);
+}
+
+function redrawChart4(selected){
+  var c=document.getElementById('c4'),ctx=c.getContext('2d');
+  var W=c.width,H=c.height;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  var data=[
+    {lbl:'Reference',         val:0.58,src:'Reference'},
+    {lbl:'VetLearn',          val:0.48,src:'VetLearn'},
+    {lbl:'Direct Traffic',    val:0.38,src:'Direct Traffic'},
+    {lbl:'Veltinguk Website', val:0.35,src:'Veltinguk Website'},
+    {lbl:'Olark Chat',        val:0.28,src:'Olark Chat'},
+    {lbl:'Facebook',          val:0.22,src:'Facebook'},
+    {lbl:'Bing',              val:0.18,src:'Bing'},
+  ];
+  var pad={l:125,r:55,t:10,b:25},cW=W-pad.l-pad.r,maxV=0.70;
+  var bH=20,gap=10,startY=pad.t+8;
+  for(var g=0;g<=7;g++){
+    var x=pad.l+g*(cW/7);
+    ctx.strokeStyle='#EDEBE9';ctx.lineWidth=0.7;
+    ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,H-pad.b);ctx.stroke();
+    label(ctx,(maxV/7*g).toFixed(1),x,H-pad.b+10,7,LGRAY,'center');
+  }
+  data.forEach(function(d,i){
+    var y=startY+i*(bH+gap);
+    var isSelected=selected==='all'||d.src===selected;
+    label(ctx,d.lbl,pad.l-5,y+bH/2+4,8.5,isSelected?DARK:'#CCCCCC','right');
+    var bW=Math.round(d.val/maxV*cW);
+    drawHBar(ctx,pad.l,y,bW,bH,isSelected?B:VB);
+    label(ctx,d.val.toFixed(2),pad.l+bW+5,y+bH/2+4,8,isSelected?DARK:'#CCCCCC','left','700');
+  });
+}
+</script>
+</body>
+</html>
